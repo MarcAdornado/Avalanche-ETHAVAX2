@@ -127,10 +127,7 @@ export default function HomePage() {
       <div>
         <p>Your Account: {account}</p>
         <p>Your Balance: {balance !== undefined ? balance : "Loading..."}</p>
-        <p>Account Status: {isActive ? "Active" : "Inactive"}</p>
-        {!isActive ? (
-          <button onClick={activateAccount}>Activate Account</button>
-        ) : (
+        <p>Account Status: {isActive ? "Active" : "Inactive"} </p> {!isActive ? (<button onClick={activateAccount}>Activate Account</button>) : (
           <>
             <button onClick={deactivateAccount}>Deactivate Account</button>
             <br />
