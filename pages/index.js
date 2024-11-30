@@ -130,11 +130,9 @@ export default function HomePage() {
         <p>Account Status: {isActive ? "Active" : "Inactive"} </p> {!isActive ? (<button onClick={activateAccount}>Activate Account</button>) : (
           <>
             <button onClick={deactivateAccount}>Deactivate Account</button>
-            <br />
-            <br />
+            <br/><br/>
             <button onClick={deposit}>Deposit 1 ETH</button>
-            <br />
-            <br />
+            <br/><br/>
             <button onClick={withdraw}>Withdraw 1 ETH</button>
           </>
         )}
