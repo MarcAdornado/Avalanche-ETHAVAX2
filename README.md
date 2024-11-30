@@ -1,4 +1,8 @@
-# Starter Next/Hardhat Project
+**Description**
+
+This code implements a decentralized ATM interface using Ethereum smart contracts. It allows users to interact with a blockchain-based wallet through a React.js frontend integrated with the Ethereum network via MetaMask.
+
+**How to Run:**
 
 After cloning the github, you will want to do the following to get the code running on your computer.
 
@@ -10,3 +14,13 @@ After cloning the github, you will want to do the following to get the code runn
 
 After this, the project will be running on your localhost. 
 Typically at http://localhost:3000/
+
+**Author**
+
+Marc Denzyl C. Adornado
+
+202110010@fit.edu.ph
+
+**License**
+
+This project is licensed under the MIT License - see LICENSE.md for details
