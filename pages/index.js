@@ -150,9 +150,7 @@ export default function HomePage() {
     );
   };
 
-  useEffect(() => {
-    getWallet();
-  }, []);
+  useEffect(() => {getWallet();}, []);
 
   return (
     <main className="container">
