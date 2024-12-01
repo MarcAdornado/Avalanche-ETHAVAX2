@@ -132,7 +132,6 @@ export default function HomePage() {
             <button onClick={deactivateAccount}>Deactivate Account</button>
             <br/><br/>
             <button onClick={deposit}>Deposit 1 ETH</button>
-            <br/><br/>
             <button onClick={withdraw}>Withdraw 1 ETH</button>
           </>
         )}
