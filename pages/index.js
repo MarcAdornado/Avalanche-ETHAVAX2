@@ -9,6 +9,8 @@ export default function HomePage() {
   const [balance, setBalance] = useState(undefined);
   const [isActive, setIsActive] = useState(false);
   const [transactionHistory, setTransactionHistory] = useState([]);
+  const [photocardCount, setPhotocardCount] = useState(0);
+  const [albumCount, setAlbumCount] = useState(0);
 
   const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   const atmABI = atm_abi.abi;
@@ -59,6 +61,14 @@ export default function HomePage() {
       addTransactionHistory("Deposit", amount.toNumber());
     });
 
+    atmContract.on("PhotocardBought", (amountSpent, event) => {
+      addTransactionHistory("Photocard Bought", amountSpent.toNumber());
+    });
+
+    atmContract.on("AlbumBought", (amountSpent, event) => {
+      addTransactionHistory("Album Bought", amountSpent.toNumber());
+    });
+
     atmContract.on("Withdraw", (amount, event) => {
       addTransactionHistory("Withdraw", amount.toNumber());
     });
@@ -75,12 +85,26 @@ export default function HomePage() {
     if (atm) {
       setBalance((await atm.getBalance()).toNumber());
       setIsActive(await atm.isActive());
+      getPhotocardCount();
+      getAlbumCount();
     }
   };
 
+  const getPhotocardCount = async () => {
+    if (atm) {
+      setPhotocardCount((await atm.photocardCounter()).toNumber());
+    }
+  };
+
+  const getAlbumCount = async () => {
+    if (atm) {
+      setAlbumCount((await atm.twiceAlbumCounter()).toNumber());
+    }
+  };
+   
   const deposit = async () => {
     if (atm) {
-      let tx = await atm.deposit(1);
+      let tx = await atm.deposit(5);
       await tx.wait();
       getBalance();
     }
@@ -88,7 +112,7 @@ export default function HomePage() {
 
   const withdraw = async () => {
     if (atm) {
-      let tx = await atm.withdraw(1);
+      let tx = await atm.withdraw(5);
       await tx.wait();
       getBalance();
     }
@@ -110,6 +134,22 @@ export default function HomePage() {
     }
   };
 
+  const buyPhotocard = async () => {
+    if (atm) {
+      let tx = await atm.buyPhotocard();
+      await tx.wait();
+      getBalance(); // Update balance and photocard count
+    }
+  };
+
+  const buyAlbum = async () => {
+    if (atm) {
+      let tx = await atm.buyAlbum();
+      await tx.wait();
+      getBalance(); // Update balance and album count
+    }
+  };
+
   const initUser = () => {
     if (!ethWallet) {
       return <p>Please install Metamask in order to use this ATM.</p>;
@@ -127,12 +167,17 @@ export default function HomePage() {
       <div>
         <p>Your Account: {account}</p>
         <p>Your Balance: {balance !== undefined ? balance : "Loading..."}</p>
+        <p>Your Photocard Count: {photocardCount}</p> {/* Photocard counter */}
+        <p>Your Twice Album Count: {albumCount}</p> {/* Album counter */}
         <p>Account Status: {isActive ? "Active" : "Inactive"} </p> {!isActive ? (<button onClick={activateAccount}>Activate Account</button>) : (
           <>
             <button onClick={deactivateAccount}>Deactivate Account</button>
             <br/><br/>
-            <button onClick={deposit}>Deposit 1 ETH</button>
-            <button onClick={withdraw}>Withdraw 1 ETH</button>
+            <button onClick={deposit}>Deposit 5 ETH</button>
+            <button onClick={withdraw}>Withdraw 5 ETH</button>
+            <br/><br/>
+            <button onClick={buyPhotocard}>Buy Twice Photocard (1 ETH)</button> {/* Buy photocard */}
+            <button onClick={buyAlbum}>Buy Twice Album (5 ETH)</button> {/* Buy album */}
           </>
         )}
         <h3>Transaction History:</h3>
