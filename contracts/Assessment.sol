@@ -5,11 +5,15 @@ contract Assessment {
     address payable public owner;
     uint256 public balance;
     bool public isActive;
+    uint256 public photocardCounter;
+    uint256 public twiceAlbumCounter;
 
     event Deposit(uint256 amount);
     event Withdraw(uint256 amount);
     event AccountActivated();
     event AccountDeactivated();
+    event PhotocardBought(uint256 amountSpent);
+    event AlbumBought(uint256 amountSpent);
 
     constructor(uint initBalance) payable {
         owner = payable(msg.sender);
@@ -63,4 +67,21 @@ contract Assessment {
         assert(balance == (_previousBalance - _withdrawAmount));
         emit Withdraw(_withdrawAmount);
     }
+
+    function buyPhotocard() public accountActive {
+        require(msg.sender == owner, "You are not the owner of this account");
+        require(balance >= 1, "Insufficient balance to buy a photocard");
+        balance -= 1;
+        photocardCounter += 1;
+        emit PhotocardBought(1);
+    }
+
+    function buyAlbum() public accountActive {
+        require(msg.sender == owner, "You are not the owner of this account");
+        require(balance >= 5, "Insufficient balance to buy an album");
+        balance -= 5;
+        twiceAlbumCounter += 1;
+        emit AlbumBought(5);
+    }
+
 }
