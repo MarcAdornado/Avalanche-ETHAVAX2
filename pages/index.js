@@ -138,7 +138,7 @@ export default function HomePage() {
     if (atm) {
       let tx = await atm.buyPhotocard();
       await tx.wait();
-      getBalance(); // Update balance and photocard count
+      getBalance();
     }
   };
 
@@ -146,7 +146,7 @@ export default function HomePage() {
     if (atm) {
       let tx = await atm.buyAlbum();
       await tx.wait();
-      getBalance(); // Update balance and album count
+      getBalance();
     }
   };
 
