@@ -183,8 +183,7 @@ export default function HomePage() {
         <h3>Transaction History:</h3>
         <ul style={{ listStyleType: "none", padding: 0 }}>
           {transactionHistory.map((tx, index) => (
-            <li key={index}>
-             {tx.type} - {tx.amount} ETH at {tx.timestamp}
+            <li key={index}> {tx.type} - {tx.amount} ETH at {tx.timestamp}
             </li>
           ))}
         </ul>
@@ -200,9 +199,7 @@ export default function HomePage() {
         <h1>Welcome to the Crambit's ATM!</h1>
       </header>
       {initUser()}
-      <style jsx>{`
-        .container {
-          text-align: center;
+      <style jsx>{` .container { text-align: center;
         }
       `}</style>
     </main>
